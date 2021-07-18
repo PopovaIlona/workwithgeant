@@ -70,6 +70,8 @@
 #include <G4GlobalMagFieldMessenger.hh>
 #include <sstream>
 
+внесение каких-то изменений для затеста GitHub
+
 using namespace std;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
