@@ -1,0 +1,106 @@
+$Id: README 66241 2012-12-13 18:34:42Z gunter $
+-------------------------------------------------------------------
+
+     =========================================================
+     Geant4 - an Object-Oriented Toolkit for Simulation in HEP
+     =========================================================
+
+                            TRT_DEVELOPMENT 
+                            --------
+
+    Test for investigation of ionisation in thin absorbers, transition 
+    and synchrotron radiations.
+
+
+ 0- INTRODUCTION
+	
+	There is one model:
+	
+	Idle> /XTRdetector/setModel TRT
+
+ 1- GEOMETRY DEFINITION
+ 
+ 	The "absorber" is a box made of a given material.                
+ 	
+ 	Three parameters define the absorber :
+ 	- the material of the absorber,
+	- the thickness of an absorber,
+ 	- the transverse size of the absorber (the input face is a square). 
+    
+        The volume "World" contains the "absorber". 
+        In this test the parameters of the "World" can be changed , too.
+
+ 	In addition a transverse uniform magnetic field can be applied.
+ 	
+ 	The default geometry is constructed in DetectorConstruction class,
+ 	but all the parameters can be changed via
+ 	the commands defined in the DetectorMessenger class.
+ 	
+ 2- AN EVENT : THE PRIMARY GENERATOR
+ 
+ 	The primary kinematic consists of a single particle which hits the
+ 	absorber perpendicular to the input face. The type of the particle
+ 	and its energy are set in the PrimaryGeneratorAction class, and can
+ 	be changed via the G4 build-in commands of ParticleGun class (see
+ 	the macros provided with this example).
+ 	
+ 	A RUN is a set of events.
+ 	
+ 3- DETECTOR RESPONSE
+
+        Here we test G4PAIionisation , G4IonisationByLogicalVolume and 
+        transition radiation processes
+ 
+ 	A HIT is a record, event per event , of all the 
+ 	informations needed to simulate and analyse the detector response.
+ 	
+ 	In this example a CalorHit is defined as a set of 2 informations:
+ 	- the total energy deposit in the absorber,
+ 	- the total tracklength of all charged particles in the absorber,  
+ 	
+ 	Therefore  the absorber is declared
+ 	'sensitive detector' (SD), which means they can contribute to the hit.
+ 	
+ 	At the end of a run, from the histogram(s), one can study 
+	different physics quantities such as :
+                                - angle distribution,
+				- energy deposit,
+ 				- transmission/backscattering,
+ 				-  ...
+    
+
+ 				
+ 4- PHYSICS DEMO
+ 
+ 	The particle's type and the physic processes which will be available
+ 	in this example are set in PhysicsList class.
+ 	
+ 	The  messenger classes introduce interactive commands . Using these
+        commands the geometry of the detector, the data of the primary
+        particle, the limits of the histograms , etc. can be changed.
+ 	
+
+ 5- HOW TO START ?
+ 
+ 	- execute TRT_DEVELOPMENT in 'batch' mode from macro files e.g.
+ 		% TRT_DEVELOPMENT   salice.mac
+		
+ 	- execute TRT_DEVELOPMENT in 'interactive' mode with visualization e.g.
+ 		% TRT_DEVELOPMENT
+		....
+		Idle> type your commands
+		....
+		
+ List of the histograms
+ -------------------------------
+
+        1.   Photon spectrum after absorber [keV]
+        2.   Angle distribution after absorber [rad]
+        3.   Incident spectrum [keV]
+        4.   Angle distribution of incident photons [rad]
+        5.   Old version of total energy distribution [keV]
+        6.   Angle distribution in the absorber [rad]
+        7.   Total energy deposition [keV]
+        8.   Sum of energy deposition for each event ["sigma" keV]
+        9.   Photon spectrum after radiator [keV]
+       10.   Angle distribution after radiator [rad]

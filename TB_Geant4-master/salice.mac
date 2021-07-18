@@ -1,0 +1,106 @@
+#
+# Macro file 'salice.mac' for the initialization phase of "TestEm10.cc"       
+# with ALICE simplified test beam setup
+#
+#/run/initialize
+/control/verbose 1
+#
+#
+/run/verbose 1
+##
+# Change and choice of experimental setups. Can be
+# simpleALICE., 
+#
+#
+/XTRdetector/setup TRT1
+#/XTRdetector/setup TRT2
+#
+# these commands do not change energy cuts???
+#
+# Set XTR model (default: regR). Name list consits:
+# gammaR, gammaM, regR, regM, strawR, transpR, transpM
+#
+# R - XTR dE/dx models, M - XTR flux after radiator models
+#
+#/emphyslist/setXTRModel  transpM    #XTR flux after #transparent regular radiator
+/emphyslist/setXTRModel  transpR   #XTR dEdx in transparent regular radiator
+#/emphyslist/setXTRModel  gammaM
+#/emphyslist/setXTRModel  gammaR
+#/emphyslist/setXTRModel  strawR
+#/emphyslist/setXTRModel  regM       #XTR flux after general regular radiator
+#/emphyslist/setXTRModel  regR       #XTR dEdx in general regular radiator
+#
+#/step/setMaxStep 30
+#/emphyslist/eMinEnergy 100.  
+#/emphyslist/gMinEnergy 1.  
+#
+#
+/run/particle/applyCuts
+#
+# set cuts in XTR radiator
+#
+/emphyslist/setGammaCut 100.
+/emphyslist/setElectronCut 100.0 #100
+/emphyslist/setPositronCut 100.0 #100
+/emphyslist/setRadiatorCuts 100.
+#
+# set cuts in XTR detector
+#
+/emphyslist/setGammaCut 100.0 #100
+/emphyslist/setElectronCut 100.0 #100
+/emphyslist/setPositronCut 100. #100
+/emphyslist/setDetectorCuts 1. 
+#
+/run/initialize
+#
+#/XTRdetector/update
+#
+#Innactivate some processes: msc eIoni eBrem RegularXTRadiator
+#                            hIoni 
+#
+# (switch off dEdx and msc always together!)
+#
+/process/inactivate msc
+/process/inactivate eIoni
+/process/inactivate hIoni
+#
+/process/inactivate eBrem
+#
+# Inactivate gamma processes
+#
+/process/inactivate phot
+/process/inactivate compt
+/process/inactivate conv
+#
+#/process/inactivate RegularXTRadiator
+#
+#/process/inactivate GammaXTRadiator
+#
+#/process/eLoss/fluct false
+#
+/process/verbose 3
+/analysis/setFileName test 
+/analysis/h1/set 2 500 -0.00005 0.0075
+/analysis/h1/set 4 500 -0.00005 0.0075
+/analysis/h1/set 10 500 -0.00005 0.0075
+/analysis/h1/set 1 500 0 150. 
+/analysis/h1/set 3 500 0 150.
+/analysis/h1/set 5 550 .0 150.
+/analysis/h1/set 7 550 .0 100.
+/analysis/h1/set 8 550 .0 100.
+/analysis/h1/set 9 500 .0 150. 
+/analysis/h2/setX 2 500 0. 0.007 
+/analysis/h2/setY 2 500 1. 100.
+/analysis/h2/setX 3 500 0. 0.007 
+/analysis/h2/setY 3 500 1. 100.
+#
+# Particle and its energy
+#
+/gun/particle e-
+/gun/energy 20. GeV
+#
+#/control/execute vis.mac
+#/tracking/verbose 2
+#
+#/event/printModulo 1000
+/run/beamOn 50000

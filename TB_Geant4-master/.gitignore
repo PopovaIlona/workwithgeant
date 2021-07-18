@@ -1,0 +1,10 @@
+*.o
+*.so
+x86_64-slc6-gcc49-opt
+inst_files.*.apps.
+.*.swp
+inst_files.*
+*C.d
+*.pcm
+*.png
+*.pdf
